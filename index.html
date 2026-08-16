@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pure Bliss | Premium Natural Soaps</title>
+  <meta name="description" content="Discover Pure Bliss Premium Soaps — a luxurious collection of natural-inspired soaps crafted for your everyday bathing ritual." />
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="Pure Bliss | Premium Natural Soaps" />
+  <meta property="og:description" content="Luxurious natural soaps crafted for your everyday ritual." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <img class="logo-icon-image" src="pure-bliss-emblem.png" alt="Pure Bliss emblem">
+        <div class="logo-text">
+          <span class="brand-name">PURE BLISS</span>
+          <span class="brand-tagline">PREMIUM SOAPS</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#ingredients">Ingredients</a></li>
+        <li><a href="#bundles">Bundles</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#order" class="btn btn-outline nav-cta">Order Now</a>
+    </div>
+  </nav>
+
+  <!-- SECTION 01 — HERO -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="gold-badge">THE DAILY RITUAL</span>
+        <h1>Nature’s Luxury,<br>Made for Your Everyday Ritual.</h1>
+        <p>Pure Bliss brings you an artisanal collection of botanical soaps, thoughtfully formulated with skin-loving ingredients to elevate your everyday cleansing routine.</p>
+        <div class="hero-actions">
+          <a href="#collection" class="btn btn-primary">Shop Collection</a>
+          <a href="https://wa.me/8801876954397" target="_blank" class="btn btn-whatsapp">Order via WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-frame">
+          <div class="image-art hero-art">
+            <img src="https://www.argana.sk/cdn/shop/files/Safrnovemydlo3.jpg?v=1769622581&width=1445" alt="Natural saffron soap" referrerpolicy="no-referrer">
+            <span class="art-tag">Botanical Oils • Saffron • Rice Silk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 02 — BRAND INTRO -->
+  <section id="about" class="section brand-intro">
+    <div class="container text-center">
+      <span class="gold-subtitle">OUR PHILOSOPHY</span>
+      <h2>Pure Ingredients. Thoughtfully Crafted. Beautifully Simple.</h2>
+      <p class="lead-text">At Pure Bliss, daily cleansing becomes a moment of calm. We blend nature-inspired elements into velvety lathers, offering soft fragrances and gentle nourishment without harsh chemical compromises.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 03 — SHOP THE COLLECTION -->
+  <section id="collection" class="section collection-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Shop the Collection</h2>
+        <p>Explore our carefully formulated botanical soap bars.</p>
+      </div>
+      <div class="product-grid" id="productGrid">
+        <!-- Injected dynamic items or static placeholders below -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 04 — SIGNATURE SOAP -->
+  <section class="section signature-section">
+    <div class="container">
+      <div class="signature-card">
+        <div class="signature-image">
+          <div class="image-art signature-art">
+            <img src="https://static.wixstatic.com/media/9deddb_78f84ab2e6c24730acf161cf16a8f26a~mv2.jpg/v1/fit/w_500%2Ch_500%2Cq_90/file.jpg" alt="Natural honey oat soap" referrerpolicy="no-referrer">
+          </div>
+        </div>
+        <div class="signature-details">
+          <span class="gold-badge">FEATURED FORMULA</span>
+          <h2>01 — Saffron Glow</h2>
+          <p class="signature-desc">Infused with delicate saffron strands and rich plant lipids, Saffron Glow leaves skin feeling delicately washed, thoroughly refreshed, and noticeably supple.</p>
+          <div class="specs-grid">
+            <div><strong>Hero Ingredient:</strong> Saffron</div>
+            <div><strong>Skin Feel:</strong> Velvety & Refreshing</div>
+            <div><strong>Fragrance:</strong> Warm Botanical</div>
+            <div><strong>Standard Size:</strong> 100g Bar</div>
+          </div>
+          <div class="signature-price">
+            <span class="price-old">৳650</span>
+            <span class="price-curr">৳550</span>
+          </div>
+          <button class="btn btn-primary" onclick="selectProductAndScroll('Saffron Glow', 550)">Shop Saffron Glow</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 05 — WHY PURE BLISS -->
+  <section class="section features-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Why Choose Pure Bliss</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🌿</div>
+          <h3>Natural-Inspired Formulas</h3>
+          <p>Created with wholesome botanical ingredients that work gently with your skin's outer barrier.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💧</div>
+          <h3>Gentle Everyday Cleansing</h3>
+          <p>Mild formulations designed for frequent daily washing without leaving skin dry or taut.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>Rich, Luxurious Lather</h3>
+          <p>Yields a dense, cushiony lather that turns your routine shower into an elevated sensory ritual.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌸</div>
+          <h3>Subtle Fragrance Profiles</h3>
+          <p>Lightly scented with authentic plant oils for a clean, lingering aura without overpowering perfume notes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 06 — INGREDIENT STORY -->
+  <section id="ingredients" class="section ingredient-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Nature’s Finest Elements</h2>
+        <p>Safely crafted cosmetic blends inspired by time-tested botanicals.</p>
+      </div>
+      <div class="ingredient-grid">
+        <div class="ing-card">
+          <h4>Saffron</h4>
+          <p>Celebrated for supporting a radiant, healthy-looking complexion feel.</p>
+        </div>
+        <div class="ing-card">
+          <h4>Rice Extracts</h4>
+          <p>Renowned for soft-touch conditioning and silky smooth skin feel.</p>
+        </div>
+        <div class="ing-card">
+          <h4>Botanical Fruits</h4>
+          <p>Packed with natural antioxidant properties for a fresh finish.</p>
+        </div>
+        <div class="ing-card">
+          <h4>Wild Honey</h4>
+          <p>Acts as a natural humectant, locking in moisture during every wash.</p>
+        </div>
+        <div class="ing-card">
+          <h4>Aloe Vera</h4>
+          <p>Provides soothing hydrating comfort to calm post-cleansing dryness.</p>
+        </div>
+        <div class="ing-card">
+          <h4>Rose Water</h4>
+          <p>Offers delicate floral aromas while gently toning the feeling of the skin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 07 — SOAP COMPARISON -->
+  <section class="section comparison-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Find Your Perfect Match</h2>
+      </div>
+      <div class="table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Variant</th>
+              <th>Hero Ingredient</th>
+              <th>Best For</th>
+              <th>Skin Feel</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Saffron Glow</strong></td>
+              <td>Saffron Threads</td>
+              <td>Radiance & Glow</td>
+              <td>Velvety Soft</td>
+              <td>৳550</td>
+            </tr>
+            <tr>
+              <td><strong>Rice Silk</strong></td>
+              <td>Rice Bran Extract</td>
+              <td>Smooth Texture</td>
+              <td>Silky & Hydrated</td>
+              <td>৳490</td>
+            </tr>
+            <tr>
+              <td><strong>Fruit Bloom</strong></td>
+              <td>Botanical Fruit Blend</td>
+              <td>Daily Refreshment</td>
+              <td>Clean & Energized</td>
+              <td>৳520</td>
+            </tr>
+            <tr>
+              <td><strong>Honey Oat</strong></td>
+              <td>Honey & Whole Oats</td>
+              <td>Dry / Sensitive Feel</td>
+              <td>Deeply Moisturized</td>
+              <td>৳490</td>
+            </tr>
+            <tr>
+              <td><strong>Aloe Botanica</strong></td>
+              <td>Pure Aloe Vera</td>
+              <td>Post-Sun / Calming</td>
+              <td>Cool & Soothed</td>
+              <td>৳490</td>
+            </tr>
+            <tr>
+              <td><strong>Rose Elixir</strong></td>
+              <td>Rose Distillate</td>
+              <td>Soft Hydration</td>
+              <td>Delicately Perfumed</td>
+              <td>৳550</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 08 — BUNDLES -->
+  <section id="bundles" class="section bundles-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Special Value Collections</h2>
+        <p>Save when you upgrade your daily cleansing ritual.</p>
+      </div>
+      <div class="bundles-grid">
+        <div class="bundle-card">
+          <h3>Single Soap</h3>
+          <p class="bundle-desc">Choose any 1 soap bar of your choice.</p>
+          <div class="bundle-price">৳490 - ৳550</div>
+          <button class="btn btn-outline" onclick="selectBundle('Single Soap', 550)">Select Option</button>
+        </div>
+        <div class="bundle-card popular">
+          <span class="badge-tag">MOST POPULAR</span>
+          <h3>Duo Bundle</h3>
+          <p class="bundle-desc">Select any 2 bars for everyday variety.</p>
+          <div class="bundle-price">৳950 <del>৳1,100</del></div>
+          <button class="btn btn-primary" onclick="selectBundle('Duo Bundle (2 Soaps)', 950)">Select Duo</button>
+        </div>
+        <div class="bundle-card best-value">
+          <span class="badge-tag">BEST VALUE</span>
+          <h3>Trio Bundle</h3>
+          <p class="bundle-desc">Choose 3 distinct bars for complete skincare.</p>
+          <div class="bundle-price">৳1,350 <del>৳1,650</del></div>
+          <button class="btn btn-primary" onclick="selectBundle('Trio Bundle (3 Soaps)', 1350)">Select Trio</button>
+        </div>
+        <div class="bundle-card">
+          <h3>Full Collection</h3>
+          <p class="bundle-desc">Experience all 6 signature soap formulations.</p>
+          <div class="bundle-price">৳2,500 <del>৳3,140</del></div>
+          <button class="btn btn-outline" onclick="selectBundle('Full Collection (6 Soaps)', 2500)">Select Collection</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 09 — HOW TO USE -->
+  <section class="section usage-section">
+    <div class="container text-center">
+      <div class="section-header">
+        <h2>The 3-Step Bathing Ritual</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h4>WET</h4>
+          <p>Dampen hands and skin thoroughly under warm water.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h4>LATHER</h4>
+          <p>Rub bar between palms or loofah to build a dense, velvety lather.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h4>RINSE</h4>
+          <p>Gently wash skin and rinse completely for a supple finish.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10 — TESTIMONIALS -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Customer Experience</h2>
+        <p>Editable customer feedback slots ready for client input.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Customer review placeholder. Real client feedback regarding skin feel, lather, and fragrance will be rendered here."</p>
+          <span class="author">— Verified Buyer</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Customer review placeholder. Real client feedback regarding skin feel, lather, and fragrance will be rendered here."</p>
+          <span class="author">— Verified Buyer</span>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">"Customer review placeholder. Real client feedback regarding skin feel, lather, and fragrance will be rendered here."</p>
+          <span class="author">— Verified Buyer</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 11 — FAQ -->
+  <section id="faq" class="section faq-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What makes Pure Bliss different?</summary>
+          <p>We prioritize rich natural-inspired base oils, balanced botanical extracts, and simple formulas designed for luxury daily cleansing without harsh drying detergents.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Are the soaps suitable for daily use?</summary>
+          <p>Yes, all formulas are crafted to provide gentle cleansing suitable for regular bath and shower routines.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How should I store the soap bar?</summary>
+          <p>Keep your soap bar in a draining soap dish between uses to allow it to dry fully and prolong bar longevity.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How long does delivery take?</summary>
+          <p>Standard delivery within Dhaka takes 24–48 hours. Express nationwide delivery typically takes 2–4 business days.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you offer Cash on Delivery (COD)?</summary>
+          <p>Yes, Cash on Delivery is available across Bangladesh.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 12 & 13 — ORDER FORM & CONTACT -->
+  <section id="order" class="section order-section">
+    <div class="container">
+      <div class="order-wrapper">
+        <div class="order-info">
+          <span class="gold-subtitle">DIRECT CHECKOUT</span>
+          <h2>Your Everyday Ritual Deserves a Little More Luxury.</h2>
+          <p>Place your order directly online with Cash on Delivery, or quickly place your request via WhatsApp.</p>
+          
+          <div class="contact-box">
+            <h4>Direct Contact Info</h4>
+            <p><strong>WhatsApp:</strong> 01876954397</p>
+            <p><strong>Email:</strong> rizvihasan01876@gmail.com</p>
+            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/rizvihasan174" target="_blank">facebook.com/rizvihasan174</a></p>
+          </div>
+        </div>
+
+        <div class="order-form-container">
+          <form id="checkoutForm" onsubmit="handleOrderSubmit(event)">
+            <h3>Express Order Form</h3>
+            
+            <div class="form-group">
+              <label for="fullName">Full Name *</label>
+              <input type="text" id="fullName" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" required placeholder="017XXXXXXXX">
+            </div>
+
+            <div class="form-group">
+              <label for="address">Delivery Address *</label>
+              <textarea id="address" rows="3" required placeholder="Full street address, City"></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group product-selection-group">
+                <label for="productSelect">Select Option *</label>
+                <select id="productSelect" onchange="updateCalculations()">
+                  <option value="Saffron Glow|550">Saffron Glow - ৳550</option>
+                  <option value="Rice Silk|490">Rice Silk - ৳490</option>
+                  <option value="Fruit Bloom|520">Fruit Bloom - ৳520</option>
+                  <option value="Honey Oat|490">Honey Oat - ৳490</option>
+                  <option value="Aloe Botanica|490">Aloe Botanica - ৳490</option>
+                  <option value="Rose Elixir|550">Rose Elixir - ৳550</option>
+                  <option value="Duo Bundle (2 Soaps)|950">Duo Bundle (2 Soaps) - ৳950</option>
+                  <option value="Trio Bundle (3 Soaps)|1350">Trio Bundle (3 Soaps) - ৳1350</option>
+                  <option value="Full Collection (6 Soaps)|2500">Full Collection (6 Soaps) - ৳2500</option>
+                </select>
+                <div id="selectedProductPreview" class="selected-product-preview" aria-live="polite">
+                  <div class="preview-image-wrap"><img id="selectedProductImage" src="" alt="Selected product"></div>
+                  <div class="preview-copy">
+                    <span class="preview-label">YOU SELECTED</span>
+                    <strong id="selectedProductName">Saffron Glow</strong>
+                    <span id="selectedProductPrice">৳550</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" value="1" min="1" max="10" onchange="updateCalculations()">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Order Notes (Optional)</label>
+              <input type="text" id="notes" placeholder="Any special instructions">
+            </div>
+
+            <div class="order-summary">
+              <div class="summary-line"><span>Subtotal:</span> <span id="subtotal">৳550</span></div>
+              <div class="summary-line"><span>Delivery Charge:</span> <span>৳60</span></div>
+              <div class="summary-line total"><span>Total Amount:</span> <span id="total">৳610</span></div>
+              <small class="payment-method">Payment: Cash on Delivery</small>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary btn-full">Complete Cash on Delivery Order</button>
+              <button type="button" class="btn btn-whatsapp btn-full" onclick="sendWhatsAppOrder()">Order via WhatsApp</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="logo-text">
+          <span class="brand-name">PURE BLISS</span>
+          <span class="brand-tagline">PREMIUM SOAPS</span>
+        </div>
+        <p>Premium natural soaps crafted for a more beautiful everyday bathing experience.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#collection">Shop</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#order">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Connect</h4>
+        <p>WhatsApp: 01876954397</p>
+        <p>Email: rizvihasan01876@gmail.com</p>
+        <p><a href="https://www.facebook.com/rizvihasan174" target="_blank">Facebook Page</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <p>&copy; 2026 Pure Bliss. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+<div id="orderLoading" class="order-loading" aria-hidden="true">
+  <div class="loading-orbit">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="loading-brand">PURE BLISS</div>
+  <div class="loading-text">Placing your order...</div>
+  <div class="loading-sub">Please wait a moment</div>
+</div>
+
+</body>
+</html>
