@@ -21,6 +21,8 @@ p{margin:0 auto;color:#aaa397;line-height:1.7;font-size:14px;max-width:390px}
 .order span{display:block;font-size:10px;letter-spacing:.22em;color:#8e856f;margin-bottom:6px}
 .order strong{font-size:20px;letter-spacing:.1em;color:#e0c174}
 .total{margin-top:6px;font-size:13px;color:#c7bba7}
+.payment-line{margin-top:8px;font-size:12px;letter-spacing:.04em;color:#e0c174;font-weight:600}
+.payment-breakdown{margin-top:4px;font-size:11px;color:#9c9384}
 button{width:100%;padding:14px 20px;border:0;border-radius:13px;background:linear-gradient(135deg,#d8b66d,#9b773a);color:#111;font-weight:700;cursor:pointer;letter-spacing:.03em;transition:.2s}
 button:hover{transform:translateY(-1px);filter:brightness(1.06)}
 .small{margin-top:14px;font-size:11px;color:#777168}
@@ -40,6 +42,8 @@ button:hover{transform:translateY(-1px);filter:brightness(1.06)}
     <span>YOUR ORDER ID</span>
     <strong id="orderId">PB-000000</strong>
     <div class="total" id="total"></div>
+    <div class="payment-line" id="paymentLine"></div>
+    <div class="payment-breakdown" id="paymentBreakdown"></div>
   </div>
   <button onclick="window.location.href='index.html'">Continue Shopping</button>
   <div class="small">Please keep your Order ID for future reference.</div>
@@ -49,6 +53,16 @@ const params=new URLSearchParams(location.search);
 document.getElementById("orderId").textContent=params.get("order")||"PB-000000";
 const total=params.get("total");
 if(total) document.getElementById("total").textContent="Order Total: ৳"+total;
+
+const payment=params.get("payment");
+if(payment) document.getElementById("paymentLine").textContent="Payment: "+payment;
+
+const advance=params.get("advance");
+const remaining=params.get("remaining");
+if(advance && remaining){
+  document.getElementById("paymentBreakdown").innerHTML =
+    "Advance Submitted: ৳"+advance+" &nbsp;•&nbsp; Remaining on Delivery: ৳"+remaining;
+}
 </script>
 </body>
 </html>
