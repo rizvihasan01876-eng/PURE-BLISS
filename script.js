@@ -68,10 +68,17 @@ const products = [
 
 const DELIVERY_CHARGE = 60;
 
+/* ---- Payment configuration ---- */
+const ADVANCE_PERCENTAGE = 20;        // % of order total required as bKash advance
+const BKASH_NUMBER = "01876954397";   // bKash Personal/Merchant number customers send advance to
+
 // Dynamic Product Catalog Render
 document.addEventListener("DOMContentLoaded", () => {
   renderCollection();
   updateCalculations();
+  if (document.querySelector('input[name="paymentMethod"]')) {
+    handlePaymentMethodChange();
+  }
 });
 
 function renderCollection() {
@@ -144,10 +151,59 @@ function updateCalculations() {
 
   const subtotal = parseInt(unitPrice) * qty;
   const total = subtotal + DELIVERY_CHARGE;
+  const advance = Math.round(total * (ADVANCE_PERCENTAGE / 100));
+  const remaining = total - advance;
 
   document.getElementById("subtotal").innerText = `৳${subtotal}`;
   document.getElementById("total").innerText = `৳${total}`;
+
+  const bkashAmountEl = document.getElementById("bkashAdvanceAmount");
+  if (bkashAmountEl) bkashAmountEl.innerText = `৳${advance}`;
+
+  const summaryAdvanceEl = document.getElementById("summaryAdvance");
+  const summaryRemainingEl = document.getElementById("summaryRemaining");
+  if (summaryAdvanceEl) summaryAdvanceEl.innerText = `৳${advance}`;
+  if (summaryRemainingEl) summaryRemainingEl.innerText = `৳${remaining}`;
+
   updateSelectedProductPreview();
+}
+
+// Payment method logic
+function getSelectedPaymentMethod() {
+  const checked = document.querySelector('input[name="paymentMethod"]:checked');
+  return checked ? checked.value : "COD";
+}
+
+function handlePaymentMethodChange() {
+  const method = getSelectedPaymentMethod();
+  const panel = document.getElementById("bkashPanel");
+  const advanceLines = document.getElementById("advanceSummaryLines");
+  const methodLabel = document.getElementById("paymentMethodLabel");
+  const submitBtn = document.getElementById("submitOrderBtn");
+  const bkashError = document.getElementById("bkashError");
+
+  const isBkash = method === "BKASH";
+
+  if (panel) {
+    panel.classList.toggle("is-open", isBkash);
+    panel.setAttribute("aria-hidden", isBkash ? "false" : "true");
+  }
+  if (advanceLines) {
+    advanceLines.classList.toggle("show", isBkash);
+    advanceLines.setAttribute("aria-hidden", isBkash ? "false" : "true");
+  }
+  if (methodLabel) {
+    methodLabel.textContent = isBkash ? "Payment: bKash Advance Payment" : "Payment: Cash on Delivery";
+  }
+  if (submitBtn) {
+    submitBtn.textContent = isBkash ? "Confirm bKash Advance Order" : "Complete Cash on Delivery Order";
+  }
+  if (!isBkash && bkashError) {
+    bkashError.classList.remove("show");
+    bkashError.textContent = "";
+  }
+
+  updateCalculations();
 }
 
 // Select helpers
@@ -185,6 +241,17 @@ function sendWhatsAppOrder() {
 
   const productName = select.options[select.selectedIndex].text;
   const total = document.getElementById("total").innerText;
+  const method = getSelectedPaymentMethod();
+  const isBkash = method === "BKASH";
+
+  let paymentBlock = `*Payment Method:* Cash on Delivery`;
+  if (isBkash) {
+    const advance = document.getElementById("summaryAdvance").innerText;
+    const remaining = document.getElementById("summaryRemaining").innerText;
+    paymentBlock = `*Payment Method:* bKash Advance Payment\n` +
+      `*Advance Payment:* ${advance}\n` +
+      `*Remaining on Delivery:* ${remaining}`;
+  }
 
   const text = `*NEW ORDER — PURE BLISS PREMIUM SOAPS*\n\n` +
     `*Customer Name:* ${name}\n` +
@@ -194,7 +261,7 @@ function sendWhatsAppOrder() {
     `*Quantity:* ${qty}\n` +
     `*Total Amount (with Delivery):* ${total}\n` +
     (notes ? `*Notes:* ${notes}\n` : '') +
-    `\n*Payment Method:* Cash on Delivery`;
+    `\n${paymentBlock}`;
 
   const encodedText = encodeURIComponent(text);
   window.open(`https://wa.me/8801876954397?text=${encodedText}`, '_blank');
@@ -218,11 +285,33 @@ async function handleOrderSubmit(e) {
     return;
   }
 
+  const paymentMethod = getSelectedPaymentMethod();
+  const isBkash = paymentMethod === "BKASH";
+  const bkashError = document.getElementById("bkashError");
+  const bkashSender = document.getElementById("bkashSender") ? document.getElementById("bkashSender").value.trim() : "";
+  const bkashTxnId = document.getElementById("bkashTxnId") ? document.getElementById("bkashTxnId").value.trim() : "";
+
+  if (isBkash && (!bkashSender || !bkashTxnId)) {
+    if (bkashError) {
+      bkashError.textContent = "Please enter your bKash sender number and transaction ID to continue.";
+      bkashError.classList.add("show");
+      bkashError.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    return;
+  }
+  if (bkashError) {
+    bkashError.classList.remove("show");
+    bkashError.textContent = "";
+  }
+
   const [productName, unitPriceRaw] = select.value.split("|");
   const unitPrice = parseInt(unitPriceRaw, 10) || 0;
   const subtotal = unitPrice * qty;
   const total = subtotal + DELIVERY_CHARGE;
+  const advanceAmount = isBkash ? Math.round(total * (ADVANCE_PERCENTAGE / 100)) : 0;
+  const remainingAmount = isBkash ? total - advanceAmount : total;
   const orderId = "PB-" + Date.now().toString().slice(-8);
+  const paymentStatus = isBkash ? "Advance Submitted" : "COD";
 
   const orderData = {
     orderId: orderId,
@@ -235,7 +324,12 @@ async function handleOrderSubmit(e) {
     subtotal: subtotal,
     delivery: DELIVERY_CHARGE,
     total: total,
-    payment: "Cash on Delivery",
+    payment: isBkash ? "bKash Advance Payment" : "Cash on Delivery",
+    advanceAmount: advanceAmount,
+    remainingAmount: remainingAmount,
+    bkashSender: isBkash ? bkashSender : "",
+    bkashTransactionId: isBkash ? bkashTxnId : "",
+    paymentStatus: paymentStatus,
     notes: notes
   };
 
@@ -265,9 +359,15 @@ async function handleOrderSubmit(e) {
     }
 
     setTimeout(() => {
-      window.location.href =
+      let successUrl =
         "order-success.html?order=" + encodeURIComponent(orderId) +
-        "&total=" + encodeURIComponent(total);
+        "&total=" + encodeURIComponent(total) +
+        "&payment=" + encodeURIComponent(orderData.payment);
+      if (isBkash) {
+        successUrl += "&advance=" + encodeURIComponent(advanceAmount) +
+          "&remaining=" + encodeURIComponent(remainingAmount);
+      }
+      window.location.href = successUrl;
     }, 1100);
 
   } catch (error) {
