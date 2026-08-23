@@ -2,8 +2,8 @@
    PURE BLISS — E-COMMERCE LOGIC & DYNAMIC BINDINGS
    ========================================================================== */
 
-// Editable Product Catalog Data Placeholder
-const products = [
+// Editable Product Catalog Data Placeholder (fallback used if the backend isn't reachable)
+let products = [
   {
     id: "saffron-glow",
     image: "https://www.argana.sk/cdn/shop/files/Safrnovemydlo3.jpg?v=1769622581&width=1445",
@@ -66,20 +66,55 @@ const products = [
   }
 ];
 
-const DELIVERY_CHARGE = 60;
+const DELIVERY_CHARGE_DEFAULT = 60;
+let DELIVERY_CHARGE = DELIVERY_CHARGE_DEFAULT;
 
-/* ---- Payment configuration ---- */
-const ADVANCE_PERCENTAGE = 20;        // % of order total required as bKash advance
-const BKASH_NUMBER = "01876954397";   // bKash Personal/Merchant number customers send advance to
+/* ---- Payment configuration (defaults; overridden live from Settings if backend is reachable) ---- */
+let ADVANCE_PERCENTAGE = 20;          // % of order total required as bKash advance
+let BKASH_NUMBER = "01876954397";     // bKash Personal/Merchant number customers send advance to
 
 // Dynamic Product Catalog Render
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   renderCollection();
   updateCalculations();
   if (document.querySelector('input[name="paymentMethod"]')) {
     handlePaymentMethodChange();
   }
+  await loadRemoteConfig();
 });
+
+// Pull live settings/products from the Apps Script backend (same URL as GOOGLE_SCRIPT_URL below).
+// If the backend isn't reachable or not yet deployed, the site keeps working with the defaults above.
+async function loadRemoteConfig() {
+  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) return;
+  try {
+    const [settingsRes, productsRes] = await Promise.all([
+      fetch(`${GOOGLE_SCRIPT_URL}?action=getPublicSettings`).then(r => r.json()).catch(() => null),
+      fetch(`${GOOGLE_SCRIPT_URL}?action=getProducts`).then(r => r.json()).catch(() => null)
+    ]);
+
+    if (settingsRes && settingsRes.success && settingsRes.settings) {
+      const s = settingsRes.settings;
+      if (s.deliveryCharge != null) DELIVERY_CHARGE = Number(s.deliveryCharge);
+      if (s.advancePercentage != null) ADVANCE_PERCENTAGE = Number(s.advancePercentage);
+      if (s.bkashNumber) {
+        BKASH_NUMBER = s.bkashNumber;
+        const el = document.getElementById("bkashNumberDisplay");
+        if (el) el.textContent = BKASH_NUMBER;
+      }
+    }
+
+    if (productsRes && productsRes.success && Array.isArray(productsRes.products) && productsRes.products.length) {
+      products = productsRes.products.filter(p => p.active !== false);
+      rebuildProductIndexes();
+      renderCollection();
+    }
+
+    updateCalculations();
+  } catch (err) {
+    console.warn("Live config unavailable, using site defaults:", err);
+  }
+}
 
 function renderCollection() {
   const grid = document.getElementById("productGrid");
@@ -105,12 +140,21 @@ function renderCollection() {
   `).join('');
 }
 
-const productImageMap = Object.fromEntries(products.map(p => [p.name.replace(/^\d+ — /, ""), p.image]));
-const bundleImages = {
+let productImageMap = Object.fromEntries(products.map(p => [p.name.replace(/^\d+ — /, ""), p.image]));
+let bundleImages = {
   "Duo Bundle (2 Soaps)": [products[0].image, products[1].image],
   "Trio Bundle (3 Soaps)": [products[0].image, products[1].image, products[2].image],
   "Full Collection (6 Soaps)": products.map(p => p.image)
 };
+
+function rebuildProductIndexes() {
+  productImageMap = Object.fromEntries(products.map(p => [p.name.replace(/^\d+ — /, ""), p.image]));
+  bundleImages = {
+    "Duo Bundle (2 Soaps)": [products[0].image, products[1].image],
+    "Trio Bundle (3 Soaps)": [products[0].image, products[1].image, products[2].image],
+    "Full Collection (6 Soaps)": products.map(p => p.image)
+  };
+}
 
 function updateSelectedProductPreview() {
   const select = document.getElementById("productSelect");
@@ -267,7 +311,7 @@ function sendWhatsAppOrder() {
   window.open(`https://wa.me/8801876954397?text=${encodedText}`, '_blank');
 }
 
-// Google Sheets Order Integration
+// Unified Google Apps Script backend (order intake + admin API) — see pure-bliss-backend.gs
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhRhUS0lHYHXkRmNpkpAZzI8O4brL6u2GITa2u8TKcEe95Gcq8UIMw9V4JDDEjEgj6Cw/exec";
 
 async function handleOrderSubmit(e) {
@@ -330,7 +374,8 @@ async function handleOrderSubmit(e) {
     bkashSender: isBkash ? bkashSender : "",
     bkashTransactionId: isBkash ? bkashTxnId : "",
     paymentStatus: paymentStatus,
-    notes: notes
+    notes: notes,
+    status: "New"
   };
 
   const submitButton = document.querySelector('#checkoutForm button[type="submit"]');
