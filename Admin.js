@@ -5,7 +5,7 @@
    as GOOGLE_SCRIPT_URL in script.js.
    ========================================================================== */
 
-const ADMIN_API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const ADMIN_API_URL = "https://script.google.com/macros/s/AKfycbygG8uGgFRVOGlxWOqtcc5p97nL0QJRMuNxOgkqOjPnnYAAqO-mGjl1QyB8UGjxMKw3Cg/exec";
 
 const CURRENCY_DEFAULT = "৳";
 let SETTINGS = { storeName: "Pure Bliss", bkashNumber: "", deliveryCharge: 60, advancePercentage: 20, currency: CURRENCY_DEFAULT };
