@@ -447,3 +447,142 @@ a { color: inherit; text-decoration: none; transition: var(--transition); }
     height: 43px;
   }
 }
+
+/* ==========================================================================
+   PAYMENT METHOD — bKash Advance / Cash on Delivery
+   ========================================================================== */
+
+.payment-method-group label { margin-bottom: 0.6rem; }
+
+.payment-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.payment-option { cursor: pointer; }
+.payment-option input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.payment-option-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--border-gold);
+  border-radius: 6px;
+  background: var(--bg-black);
+  transition: var(--transition);
+  height: 100%;
+}
+
+.payment-option-icon { font-size: 1.2rem; line-height: 1; flex: 0 0 auto; }
+
+.payment-option-text { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.payment-option-text strong { font-size: 0.88rem; letter-spacing: 0.2px; color: var(--text-primary); font-weight: 600; }
+.payment-option-text small { font-size: 0.72rem; color: var(--text-secondary); }
+
+.payment-option input:checked + .payment-option-inner {
+  border-color: var(--gold-primary);
+  background: linear-gradient(145deg, rgba(212,175,55,0.1), rgba(212,175,55,0.03));
+  box-shadow: 0 0 0 1px rgba(212,175,55,0.25), 0 6px 18px rgba(212,175,55,0.08);
+}
+.payment-option input:checked + .payment-option-inner .payment-option-text strong { color: var(--gold-light); }
+
+.payment-option input:focus-visible + .payment-option-inner {
+  outline: 2px solid var(--gold-primary);
+  outline-offset: 2px;
+}
+
+.payment-option-inner:hover { border-color: rgba(212,175,55,0.5); }
+
+@media (max-width: 480px) {
+  .payment-toggle { grid-template-columns: 1fr; }
+}
+
+/* bKash collapsible panel */
+.bkash-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.3s ease, margin 0.35s ease;
+  margin-top: 0;
+}
+.bkash-panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: -0.35rem;
+  margin-bottom: 1.25rem;
+}
+.bkash-panel-inner { overflow: hidden; min-height: 0; }
+
+.bkash-panel .bkash-panel-inner {
+  border: 1px solid var(--border-gold);
+  background: linear-gradient(160deg, var(--bg-brown), var(--bg-black));
+  border-radius: 6px;
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.bkash-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.bkash-badge {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+  color: #000;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.bkash-panel-title { font-family: var(--font-serif); font-size: 1.15rem; color: var(--gold-light); }
+
+.bkash-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--border-gold);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.bkash-info-row strong { color: var(--text-primary); letter-spacing: 0.5px; font-size: 0.95rem; }
+.bkash-info-row.bkash-amount strong { color: var(--gold-light); font-size: 1.1rem; }
+
+.bkash-instruction {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0.85rem 0 1rem;
+  line-height: 1.6;
+}
+
+.bkash-error {
+  display: none;
+  font-size: 0.8rem;
+  color: #e7c98f;
+  background: rgba(212,175,55,0.08);
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 4px;
+  padding: 0.65rem 0.85rem;
+  margin: 0.25rem 0 1rem;
+}
+.bkash-error.show { display: block; }
+
+/* Order summary advance/remaining lines */
+.advance-summary-lines {
+  display: none;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px dashed var(--border-gold);
+}
+.advance-summary-lines.show { display: block; }
+.summary-line.advance span:last-child,
+.summary-line.remaining span:last-child { color: var(--gold-light); }
