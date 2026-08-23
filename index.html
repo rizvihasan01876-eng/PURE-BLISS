@@ -442,15 +442,74 @@
               <input type="text" id="notes" placeholder="Any special instructions">
             </div>
 
+            <div class="form-group payment-method-group">
+              <label>Payment Method *</label>
+              <div class="payment-toggle" role="radiogroup" aria-label="Payment Method">
+                <label class="payment-option">
+                  <input type="radio" name="paymentMethod" value="COD" checked onchange="handlePaymentMethodChange()">
+                  <span class="payment-option-inner">
+                    <span class="payment-option-icon">💵</span>
+                    <span class="payment-option-text">
+                      <strong>Cash on Delivery</strong>
+                      <small>Pay when your order arrives</small>
+                    </span>
+                  </span>
+                </label>
+                <label class="payment-option">
+                  <input type="radio" name="paymentMethod" value="BKASH" onchange="handlePaymentMethodChange()">
+                  <span class="payment-option-inner">
+                    <span class="payment-option-icon">📱</span>
+                    <span class="payment-option-text">
+                      <strong>bKash Advance Payment</strong>
+                      <small>Pay a small advance now</small>
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div id="bkashPanel" class="bkash-panel" aria-hidden="true">
+              <div class="bkash-panel-inner">
+                <div class="bkash-panel-header">
+                  <span class="bkash-badge">bKash</span>
+                  <span class="bkash-panel-title">Advance Payment</span>
+                </div>
+                <div class="bkash-info-row">
+                  <span>bKash Number</span>
+                  <strong id="bkashNumberDisplay">01876954397</strong>
+                </div>
+                <div class="bkash-info-row bkash-amount">
+                  <span>Advance Payment Amount</span>
+                  <strong id="bkashAdvanceAmount">৳0</strong>
+                </div>
+                <p class="bkash-instruction">Send the advance amount above to the bKash number via <em>Send Money</em>, then enter your payment details below.</p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="bkashSender">bKash Sender Number *</label>
+                    <input type="tel" id="bkashSender" placeholder="01XXXXXXXXX">
+                  </div>
+                  <div class="form-group">
+                    <label for="bkashTxnId">Transaction ID *</label>
+                    <input type="text" id="bkashTxnId" placeholder="e.g. 8N7A2X9K1L">
+                  </div>
+                </div>
+                <div id="bkashError" class="bkash-error" role="alert"></div>
+              </div>
+            </div>
+
             <div class="order-summary">
               <div class="summary-line"><span>Subtotal:</span> <span id="subtotal">৳550</span></div>
               <div class="summary-line"><span>Delivery Charge:</span> <span>৳60</span></div>
               <div class="summary-line total"><span>Total Amount:</span> <span id="total">৳610</span></div>
-              <small class="payment-method">Payment: Cash on Delivery</small>
+              <div id="advanceSummaryLines" class="advance-summary-lines" aria-hidden="true">
+                <div class="summary-line advance"><span>Advance Payment:</span> <span id="summaryAdvance">৳0</span></div>
+                <div class="summary-line remaining"><span>Remaining on Delivery:</span> <span id="summaryRemaining">৳0</span></div>
+              </div>
+              <small class="payment-method" id="paymentMethodLabel">Payment: Cash on Delivery</small>
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn btn-primary btn-full">Complete Cash on Delivery Order</button>
+              <button type="submit" id="submitOrderBtn" class="btn btn-primary btn-full">Complete Cash on Delivery Order</button>
               <button type="button" class="btn btn-whatsapp btn-full" onclick="sendWhatsAppOrder()">Order via WhatsApp</button>
             </div>
           </form>
