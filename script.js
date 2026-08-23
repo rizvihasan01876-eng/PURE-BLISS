@@ -312,7 +312,7 @@ function sendWhatsAppOrder() {
 }
 
 // Unified Google Apps Script backend (order intake + admin API) — see pure-bliss-backend.gs
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhRhUS0lHYHXkRmNpkpAZzI8O4brL6u2GITa2u8TKcEe95Gcq8UIMw9V4JDDEjEgj6Cw/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbygG8uGgFRVOGlxWOqtcc5p97nL0QJRMuNxOgkqOjPnnYAAqO-mGjl1QyB8UGjxMKw3Cg/exec";
 
 async function handleOrderSubmit(e) {
   e.preventDefault();
