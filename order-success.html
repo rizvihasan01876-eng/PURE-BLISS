@@ -115,5 +115,53 @@ document.getElementById('orderForm').addEventListener(
   handleOrderSubmit
 );
 </script>
+  <!-- Firebase CDN -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7LvdoIZdJxiS4hpVpVB02ElA7c5tzvnU",
+    authDomain: "sonic-maker-bbndl.firebaseapp.com",
+    projectId: "sonic-maker-bbndl",
+    storageBucket: "sonic-maker-bbndl.firebasestorage.app",
+    messagingSenderId: "562671532613",
+    appId: "1:562671532613:web:ad83240f00decee88a812c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // গ্লোবাল ফাংশন
+  window.submitArvenOrder = async function(customerInfo) {
+    const year = new Date().getFullYear();
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    const orderId = `ARV-${year}-${rand}`;
+
+    await addDoc(collection(db, 'orders'), {
+      orderId: orderId,
+      invoiceNumber: `INV-${year}-${rand}`,
+      storeId: 'LP001',
+      storeName: 'Vercel Landing Page',
+      customerName: customerInfo.name,
+      phone: customerInfo.phone,
+      address: customerInfo.address,
+      district: customerInfo.district || 'Dhaka',
+      productName: customerInfo.productName || 'Landing Page Item',
+      quantity: 1,
+      productPrice: customerInfo.price || 1500,
+      deliveryCharge: 80,
+      totalAmount: (customerInfo.price || 1500) + 80,
+      paymentMethod: 'Cash on Delivery (COD)',
+      paymentStatus: 'Pending',
+      orderStatus: 'Pending',
+      orderSource: 'Vercel Landing Page',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+
+    return orderId;
+  };
+</script>
 </body>
 </html>
