@@ -64,5 +64,56 @@ if(advance && remaining){
     "Advance Submitted: ৳"+advance+" &nbsp;•&nbsp; Remaining on Delivery: ৳"+remaining;
 }
 </script>
+  <script>
+async function handleOrderSubmit(e) {
+  e.preventDefault();
+
+  const orderData = {
+    customerName: document.getElementById('name').value,
+    phone: document.getElementById('phone').value,
+    address: document.getElementById('address').value,
+    district: 'Dhaka',
+    productName: 'প্রিমিয়াম স্মার্টওয়াচ (Special Offer)',
+    quantity: 1,
+    price: 1850,
+    deliveryCharge: 80,
+    paymentMethod: 'Cash on Delivery (COD)',
+    source: 'Vercel Landing Page'
+  };
+
+  try {
+    const response = await fetch(
+      'https://ais-dev-mqjrixhilseufpwx335u4v-207391765188.asia-southeast1.run.app/api/orders',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'arven_live_f2117b33ddd7ab7f'
+        },
+        body: JSON.stringify(orderData)
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert('ধন্যবাদ! আপনার অর্ডার গ্রহণ করা হয়েছে।');
+      window.location.href = '/thank-you.html';
+    } else {
+      alert('ত্রুটি: ' + (result.error || 'অর্ডার নেওয়া যায়নি'));
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert('সার্ভার কানেকশন ত্রুটি! আবার চেষ্টা করুন।');
+  }
+}
+
+// Form submit হলে function টি চলবে
+document.getElementById('orderForm').addEventListener(
+  'submit',
+  handleOrderSubmit
+);
+</script>
 </body>
 </html>
